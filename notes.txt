@@ -1,0 +1,13 @@
+vytvoření interface pro import do databáze z různých zdrojů dat:
+    - importní funkce s výstupem head, body. Obojí ve vhodném formátu (list, tuple, ...)
+    - funkce pro vytvoření tabulky (pokud neexistuje) z kolekcí
+    - funkce pro uložení dat do DB
+
+Osnova:
+    - proměnné
+    - operátory
+    - podmínky
+    - smyčky
+    - funkce
+    - objekty
+    - moduly

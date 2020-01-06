@@ -8,6 +8,6 @@ Osnova:
     - operátory
     - podmínky
     - smyčky
-    - funkce
+    - funkce, scope
     - objekty
     - moduly

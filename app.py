@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import database_manager as dbm
 
 
 def import_file(path):
@@ -16,5 +17,13 @@ def plot_data(data_frame):
     plt.show()
 
 
-data, head = import_file("data/2015jaro.txt")
-plot_data(data)
+data, head = import_file("data/2015_03_15.txt")
+
+db_path = "sqlite:///signal.sqlite3"
+database = dbm.DbManager(db_path)
+table = database.create_table("MV_data")
+print(type(table))
+# table.insert(data)
+# plot_data(data)
+
+

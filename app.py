@@ -1,52 +1,34 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import database_manager as dbm
-import os
 
 
-def import_file(directory, file):
-    path = f'{directory}/{file}'
-    data_frame = pd.read_fwf(path)
-    table_head = data_frame.columns.values
-    plot_data(data_frame)
-    # return data_frame, table_head
+def plot_data(data, param):
+    plt.figure(figsize=(12, 8))
+    plt.plot(data[0], data[1])
+    plt.title(param)
+    plt.legend(param.replace(' ', '').split(','))
+    plt.xlabel('stationing [km]')
+    plt.ylabel('amplitude [mm]')
+    plt.grid(True)
+    plt.savefig(f'plots/{param}_from_{min(data[0])}_to_{max(data[0])}.png')
+    plt.close()
+    # plt.show()
+
+def main():
+    database = dbm.DbManager()
+
+    plots = [('MV_2015_03_15', 105.000, 105.100, 'VL_D1, VP_D1'),
+             ('MV_2015_03_15', 106.000, 106.100, 'VP_D1'),
+             ('MV_2015_03_15', 107.000, 107.100, 'VK_D2')]
+
+    for plot in plots:
+        data = database.fetch_data(plot[0], plot[1], plot[2], plot[3])
+        x = [row[0] for row in data]
+        y = [row[1:] for row in data]
+        data_frame = [x, y]
+        plot_data(data_frame, plot[3])
+
+    database.disconnect()
 
 
-def plot_data(data_frame):
-    plt.plot(data_frame['_KM.M____'], data_frame['VL_D1'])
-    plt.plot(data_frame['_KM.M____'], data_frame['VP_D1'])
-    plt.title('Vyska D1')
-    plt.ylabel('[mm]')
-    plt.show()
-
-
-def read_all_files(directory):
-    directory_list = os.listdir(directory)
-    for file in directory_list:
-        import_file(directory, file)
-
-
-read_all_files('data')
-
-
-
-
-
-
-
-
-# # /////////////////
-# #  block to import data a save into db
-# data, head = import_file("data/2015_03_15.txt")
-#
-# # data_list = [item for item in data.values]
-# data_list = []
-# for item in data.values:
-#     data_list.append(item)
-#
-# db_path = "signal.sqlite3"
-# database = dbm.DbManager(db_path)
-# database.create_table("MV_data")
-# database.insert_data("MV_data", data_list)
-# database.disconnect()
-# # /////////////////
+main()

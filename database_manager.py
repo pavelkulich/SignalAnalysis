@@ -3,8 +3,8 @@ import sqlite3
 
 
 class DbManager:
-    def __init__(self, db_path):
-        self._db_path = db_path
+    def __init__(self):
+        self._db_path = 'signal.sqlite3'
         try:
             self._sqliteConnection = sqlite3.connect(self._db_path)
             self._cursor = self._sqliteConnection.cursor()
@@ -39,13 +39,26 @@ class DbManager:
                         );"""
 
             self._cursor.execute(query)
+            print(f'Table {table_name} has been created')
+            return True
         except sqlite3.Error as error:
             print(error)
+            return False
 
     def insert_data(self, table_name, data):
-        query = f'INSERT INTO {table_name} (km, RK_1_INF, RYCH, SL_D1, SP_D1, SK_D2, K_70_INF, PK_CEL, ZKS_P, ZKS_B, VK_D2, VL_D1, VP_D1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        self._cursor.executemany(query, data)
-        # self._sqliteConnection.commit()
+        try:
+            query = f'INSERT INTO {table_name} (km, RK_1_INF, RYCH, SL_D1, SP_D1, SK_D2, K_70_INF, PK_CEL, ZKS_P, ZKS_B, VK_D2, VL_D1, VP_D1) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            self._cursor.executemany(query, data)
+            self._sqliteConnection.commit()
+            print(f'{len(data)} rows has been inserted into {table_name}')
+        except Exception as e:
+            print(e)
+
+    def fetch_data(self, table_name, from_km, to_km, parameter):
+        query = f'SELECT km,{parameter} FROM {table_name} WHERE km BETWEEN {from_km} AND {to_km}'
+        self._cursor.execute(query)
+        data = self._cursor.fetchall()
+        return data
 
     def create_table_alchemy(self, table_name):
         try:

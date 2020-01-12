@@ -3,8 +3,8 @@ import sqlite3
 
 
 class DbManager:
-    def __init__(self):
-        self._db_path = 'signal.sqlite3'
+    def __init__(self, db_path='signal.sqlite3'):
+        self._db_path = db_path
         try:
             self._sqliteConnection = sqlite3.connect(self._db_path)
             self._cursor = self._sqliteConnection.cursor()
@@ -72,3 +72,9 @@ class DbManager:
             return table
         except Exception as e:
             print(e)
+
+    def find_tables(self):
+        query = "SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%';"
+        self._cursor.execute(query)
+        tables = self._cursor.fetchall()
+        return tables

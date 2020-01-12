@@ -14,6 +14,7 @@ def plot_data(data, param):
     plt.close()
     # plt.show()
 
+
 def main():
     database = dbm.DbManager()
 

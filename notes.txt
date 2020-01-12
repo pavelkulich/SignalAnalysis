@@ -1,13 +1,38 @@
+Osnova:
+    - klíčová slova
+    - proměnné (plnění proměnných různých typů, zjišťování typu proměnné)
+        - práce s numerickými proměnnými
+        - logické proměnné
+        - práce se stringy
+        - základní kolekce
+    - operátory
+        - porovnávací operátory
+        - logické operátory
+    - podmínky - 1_posOrNeg
+        - jendoduchá podmínky
+        - složitější podmínky
+        - příklady
+    - smyčky
+        - for cyklus - 2_factorial
+            - iterace přes kolekci, string
+            - range
+         - while loop - 3_fibonacciSequence
+    - funkce
+        - scope
+        - funkce bez paramerů
+        - funkce s parametry
+        - návratové hodnoty
+    - objekty
+        - principy OOP
+        - vytvoření třídy
+    - moduly a package
+        - základní použití
+        - numpy, matplotlib, pandas
+
+
+
+
 vytvoření interface pro import do databáze z různých zdrojů dat:
     - importní funkce s výstupem head, body. Obojí ve vhodném formátu (list, tuple, ...)
     - funkce pro vytvoření tabulky (pokud neexistuje) z kolekcí
     - funkce pro uložení dat do DB
-
-Osnova:
-    - proměnné
-    - operátory
-    - podmínky
-    - smyčky
-    - funkce, scope
-    - objekty
-    - moduly

@@ -19,6 +19,7 @@ class DbManager:
 
     def disconnect(self):
         self._sqliteConnection.close()
+        print('DB disconnected')
 
     def create_table(self, table_name):
         try:

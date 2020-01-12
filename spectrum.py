@@ -33,7 +33,7 @@ def plot_wavelength(x, y, N):
     plt.xscale('log')
     plt.grid(True, which='major')
     plt.grid(True, which='minor')
-    plt.savefig('dft.png')
+    plt.savefig('plots/dft.png')
     plt.show()
 
 
@@ -43,9 +43,11 @@ def main():
     data = database.fetch_data(plot[0], plot[1], plot[2], plot[3])
     x = [row[0] for row in data]
     y = [row[1] for row in data]
-    amp = dft(y)
-    # amp = np.fft.fft(y)
+    # amp = dft(y)
+    amp = np.fft.fft(y)
     T = x[1] - x[0]
     N = len(y)
     f = np.linspace(0, 1 / T, N)
     plot_wavelength(f, amp, N)
+
+main()

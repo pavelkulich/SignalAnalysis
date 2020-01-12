@@ -26,13 +26,14 @@ def main(directory, ):
 
     directory_list = os.listdir(directory)
     for file in directory_list:
-        data_frame = import_file(directory, file)
-        data_list = [item for item in data_frame.values]
-        db_table = f'MV_{file.split(sep=".")[0]}'  # https://www.w3schools.com/python/ref_string_split.asp
+        if file.endswith(".TXT"):
+            data_frame = import_file(directory, file)
+            data_list = [item for item in data_frame.values]
+            db_table = f'MV_{file.split(sep=".")[0]}'  # https://www.w3schools.com/python/ref_string_split.asp
 
-        if database.create_table(db_table):
-            database.insert_data(db_table, data_list)
+            if database.create_table(db_table):
+                database.insert_data(db_table, data_list)
 
     database.disconnect()
 
-# main('data')
+main('data')

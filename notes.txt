@@ -30,6 +30,8 @@ Osnova:
         - numpy, matplotlib, pandas
 
 
+Dodělat:
+- lambda funkce
 
 
 vytvoření interface pro import do databáze z různých zdrojů dat:

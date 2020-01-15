@@ -9,6 +9,7 @@ Osnova:
         - porovnávací operátory
         - logické operátory
     - podmínky - 1_posOrNeg
+        - scope
         - jendoduchá podmínky
         - složitější podmínky
         - příklady
@@ -18,7 +19,6 @@ Osnova:
             - range
          - while loop - 3_fibonacciSequence
     - funkce
-        - scope
         - funkce bez paramerů
         - funkce s parametry
         - návratové hodnoty
@@ -38,3 +38,4 @@ vytvoření interface pro import do databáze z různých zdrojů dat:
     - importní funkce s výstupem head, body. Obojí ve vhodném formátu (list, tuple, ...)
     - funkce pro vytvoření tabulky (pokud neexistuje) z kolekcí
     - funkce pro uložení dat do DB
+    - pdDataFrame to Matplotlib

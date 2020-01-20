@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import database_manager as dbm
+import pandas as pd
 
 
 def dft(x):
@@ -36,17 +37,28 @@ def plot_wavelength(x, y, N):
     plt.savefig('plots/dft.png')
     plt.show()
 
+def import_file(directory, file):
+    path = f'{directory}/{file}'
+    data_frame = pd.read_fwf(path)
+    table_head = data_frame.columns.values
+    return data_frame
+
 
 def main():
-    plot = ('MV_2015_03_15', 106.000, 107.000, 'VK_D2')
-    database = dbm.DbManager('signal.sqlite3')
-    data = database.fetch_data(plot[0], plot[1], plot[2], plot[3])
-    x = [row[0] for row in data]
-    y = [row[1] for row in data]
+    # plot = ('MV_2015_03_15', 106.000, 107.000, 'VK_D2')
+    # database = dbm.DbManager('signal.sqlite3')
+    # data = database.fetch_data(plot[0], plot[1], plot[2], plot[3])
+
+    # x = [row[0] for row in data]
+    # y = [row[1] for row in data]
     # amp = dft(y)
+    data = import_file("data", "EXPORT00.txt")
+    x = data['_KM.M____']
+    y = data['TOP_PRL']
+    N = data['_KM.M____'].size
     amp = np.fft.fft(y)
     T = x[1] - x[0]
-    N = len(y)
+    # N = len(y)
     f = np.linspace(0, 1 / T, N)
     plot_wavelength(f, amp, N)
 

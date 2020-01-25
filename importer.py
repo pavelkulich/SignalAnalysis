@@ -21,7 +21,7 @@ def import_file(directory, file):
 #     plt.show()
 
 
-def main(directory, ):
+def import_and_save(directory):
     database = dbm.DbManager()
 
     directory_list = os.listdir(directory)
@@ -36,4 +36,3 @@ def main(directory, ):
 
     database.disconnect()
 
-main('data')

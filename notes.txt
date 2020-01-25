@@ -18,16 +18,19 @@ Osnova:
             - iterace přes kolekci, string
             - range
          - while loop - 3_fibonacciSequence
+    - robustnost programu
+        - výjimky
     - funkce
         - funkce bez paramerů
         - funkce s parametry
         - návratové hodnoty
-    - objekty
-        - principy OOP
-        - vytvoření třídy
     - moduly a package
         - základní použití
         - numpy, matplotlib, pandas
+    - objekty
+        - principy OOP
+        - vytvoření třídy
+
 
 
 Dodělat:

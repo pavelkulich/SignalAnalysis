@@ -7,8 +7,6 @@ import os
 def import_file(directory, file):
     path = f'{directory}/{file}'
     data_frame = pd.read_fwf(path)
-    # table_head = data_frame.columns.values
-    # plot_data(data_frame)
     return data_frame
 
 
@@ -21,7 +19,7 @@ def import_file(directory, file):
 #     plt.show()
 
 
-def import_and_save(directory):
+def main(directory):
     database = dbm.DbManager()
 
     directory_list = os.listdir(directory)
@@ -36,3 +34,4 @@ def import_and_save(directory):
 
     database.disconnect()
 
+main('data')

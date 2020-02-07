@@ -1,34 +1,34 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-import spectrum as sp
-import database_manager as dbm
-import os
+import numpy as np
+import scipy.signal as sig
 
 
-# def import_file(path):
-#     data_frame = pd.read_fwf(path)
-#     table_head = data_frame.columns.values
-#     return data_frame, table_head
+class Filter:
+    def __init__(self):
+        self.data = pd.read_fwf('../data/EXPORT01.TXT')
+        x = self.data['_KM.M____']
+        self.N = self.data.shape[0]
+        self.x_axis = np.linspace(0, 1 / (x[1] - x[0]), self.N)
 
-def import_file(directory, file):
-    path = f'{directory}/{file}'
-    data_frame = pd.read_fwf(path)
-    table_head = data_frame.columns.values
-    plot_data(data_frame)
-    return data_frame
+    def plot_wavelength(self, column):
+        y = self.data[column]
+        amplitude = np.fft.fft(y)
+        plt.plot(self.N / 4 * self.x_axis[2:self.N // 2] ** (-1), np.abs(amplitude)[2:self.N // 2] / self.N)
+        plt.xlabel('wavelength [m]')
+        plt.ylabel('amplitude [mm]')
+        plt.xscale('log')
+        plt.grid(True, which='major')
+        plt.grid(True, which='minor')
+        plt.show()
+
+    @staticmethod
+    def filter_data():
+        a = sig.cheb1ap(6, 3)
+        plt.plot(a[1])
+        plt.show()
 
 
-def plot_data(data_frame):
-    # plt.figure(figsize=(20, 12))
-    plt.plot(data_frame['_KM.M____'], data_frame['TOP_PRL'])
-    plt.plot(data_frame['_KM.M____'], data_frame['TOP_PRR'])
-    plt.xlabel('staničení [km]')
-    plt.ylabel('amplituda [mm]')
-    plt.grid(True, which='major')
-    plt.grid(True, which='minor')
-    plt.savefig('primary.png')
 
-
-# data = import_file("../data", "EXPORT00.txt")
-# sp.plot_frequency(data['_KM.M____'], data['TOP_PRL'], data.size)
-# plot_data(data)
+# Filter().plot_wavelength('AlgPrR')
+Filter.filter_data()

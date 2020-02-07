@@ -18,7 +18,7 @@ def dft(x):
 
 
 def plot_frequency(x, y, N):
-    plt.plot(x[0:N // 2] ** (-1), np.abs(y)[0:N // 2] / N)
+    plt.plot(x[0:N // 2], np.abs(y)[0:N // 2] / N)
     plt.xlabel('frequency [Hz]')
     plt.ylabel('amplitude [mm]')
     plt.xscale('log')
@@ -28,7 +28,7 @@ def plot_frequency(x, y, N):
 
 
 def plot_wavelength(x, y, N):
-    plt.plot(N / 4 * x[2:N // 2] ** (-1), np.abs(y)[2:N // 2] / N)
+    plt.bar(N / 4 * x[2:N // 2] ** (-1), np.abs(y)[2:N // 2] / N)
     plt.xlabel('wavelength [m]')
     plt.ylabel('amplitude [mm]')
     plt.xscale('log')
@@ -37,10 +37,10 @@ def plot_wavelength(x, y, N):
     plt.savefig('plots/dft.png')
     plt.show()
 
+
 def import_file(directory, file):
     path = f'{directory}/{file}'
-    data_frame = pd.read_fwf(path)
-    table_head = data_frame.columns.values
+    data_frame = pd.read_fwf(path).dropna()
     return data_frame
 
 
@@ -52,14 +52,19 @@ def main():
     # x = [row[0] for row in data]
     # y = [row[1] for row in data]
     # amp = dft(y)
-    data = import_file("data", "EXPORT00.txt")
-    x = data['_KM.M____']
-    y = data['TOP_PRL']
-    N = data['_KM.M____'].size
+    data = import_file("data", "2015_03_15.txt")
+    x = data['_KM.M____'][0:4000]
+    y = data['SL_D1'][0:4000]
+    N = x.size
     amp = np.fft.fft(y)
     T = x[1] - x[0]
     # N = len(y)
     f = np.linspace(0, 1 / T, N)
+    # plt.plot(y)
+    # plt.grid(True, which='major')
+    # plt.grid(True, which='minor')
+    # plt.show()
     plot_wavelength(f, amp, N)
+
 
 main()
